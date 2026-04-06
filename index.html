@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Feliz Cumpleaños</title>
+
+<style>
+body{
+    margin:0;
+    background:#111;
+    overflow:hidden;
+    font-family:sans-serif;
+}
+
+/* DESTELLOS */
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:0;
+}
+
+/* ===== HAPPY BIRTHDAY ===== */
+.centro{
+    position:absolute;
+    top:30%; /* 🔥 MÁS ARRIBA (sin hueco negro) */
+    left:50%;
+    transform:translate(-50%,-50%);
+    z-index:2;
+}
+
+.centro img{
+    width:85vw;      /* 🔥 MÁS GRANDE */
+    max-width:520px;
+}
+
+/* ===== PERRITO ===== */
+.perrito{
+    position:absolute;
+    top:68%; /* debajo del título */
+    left:50%;
+    transform:translate(-50%,-50%);
+    z-index:2;
+}
+
+.perrito img{
+    width:70vw;   /* 🔥 GRANDE */
+    max-width:420px;
+}
+
+/* ===== JIMS ===== */
+.jim{
+    position:absolute;
+    width:22vw;
+    max-width:180px;
+    animation: flotar 4s ease-in-out infinite;
+    z-index:2;
+}
+
+@keyframes flotar{
+    0%{ transform:translateY(0px) rotate(-2deg);}
+    50%{ transform:translateY(-12px) rotate(2deg);}
+    100%{ transform:translateY(0px) rotate(-2deg);}
+}
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+   <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<canvas id="fuegos"></canvas>
+
+<div class="centro">
+   <img src="happy.png">
+</div>
+
+<div class="perrito">
+   <img src="perrito.png">
+</div>
+
+<!-- JIMS -->
+<img src="gorro_morado.png" class="jim" style="top:4%; left:2%;">
+<img src="gorro_confeti.png" class="jim" style="top:2%; left:38%;">
+<img src="gorro_azul.png" class="jim" style="top:4%; right:2%;">
+
+<img src="gorro_azul_puntos.png" class="jim" style="top:45%; left:2%;">
+<img src="gorro_rosado.png" class="jim" style="top:45%; right:2%;">
+
+<img src="gorro_plomo.png" class="jim" style="bottom:20%; left:15%;">
+<img src="gorro_estrellas.png" class="jim" style="bottom:20%; right:15%;">
+
+<script>
+const canvas = document.getElementById("fuegos");
+const ctx = canvas.getContext("2d");
+
+function resize(){
+ canvas.width = window.innerWidth;
+ canvas.height = window.innerHeight;
+}
+resize();
+window.onresize = resize;
+
+let particles=[];
+
+function crear(){
+ let x=Math.random()*canvas.width;
+ let y=Math.random()*canvas.height;
+
+ for(let i=0;i<20;i++){
+  particles.push({
+   x,y,
+   dx:(Math.random()-0.5)*2,
+   dy:(Math.random()-0.5)*2,
+   life:60
+  });
+ }
+}
+
+setInterval(crear,900);
+
+function animar(){
+ ctx.fillStyle="rgba(17,17,17,0.25)";
+ ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ particles.forEach((p,i)=>{
+  p.x+=p.dx;
+  p.y+=p.dy;
+  p.life--;
+
+  ctx.beginPath();
+  ctx.arc(p.x,p.y,2,0,Math.PI*2);
+  ctx.fillStyle="white";
+  ctx.fill();
+
+  if(p.life<=0) particles.splice(i,1);
+ });
+
+ requestAnimationFrame(animar);
+}
+
+animar();
+</script>
+
+</body>
+</html>
