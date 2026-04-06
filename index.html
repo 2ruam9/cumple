@@ -2,7 +2,6 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Feliz Cumpleaños</title>
@@ -23,35 +22,35 @@ canvas{
     z-index:0;
 }
 
-/* ===== HAPPY BIRTHDAY ===== */
+/* HAPPY BIRTHDAY */
 .centro{
     position:absolute;
-    top:30%; /* 🔥 MÁS ARRIBA (sin hueco negro) */
+    top:32%;
     left:50%;
     transform:translate(-50%,-50%);
     z-index:2;
 }
 
 .centro img{
-    width:85vw;      /* 🔥 MÁS GRANDE */
+    width:85vw;
     max-width:520px;
 }
 
-/* ===== PERRITO ===== */
+/* PERRITO GRANDE DEBAJO */
 .perrito{
     position:absolute;
-    top:68%; /* debajo del título */
+    top:68%;
     left:50%;
     transform:translate(-50%,-50%);
     z-index:2;
 }
 
 .perrito img{
-    width:70vw;   /* 🔥 GRANDE */
+    width:75vw;
     max-width:420px;
 }
 
-/* ===== JIMS ===== */
+/* JIMS */
 .jim{
     position:absolute;
     width:22vw;
@@ -62,7 +61,7 @@ canvas{
 
 @keyframes flotar{
     0%{ transform:translateY(0px) rotate(-2deg);}
-    50%{ transform:translateY(-12px) rotate(2deg);}
+    50%{ transform:translateY(-10px) rotate(2deg);}
     100%{ transform:translateY(0px) rotate(-2deg);}
 }
 </style>
@@ -70,7 +69,8 @@ canvas{
 
 <body>
 
-<audio autoplay loop>
+<!-- MUSICA -->
+<audio id="musica" loop>
    <source src="musica.mp3" type="audio/mpeg">
 </audio>
 
@@ -96,6 +96,7 @@ canvas{
 <img src="gorro_estrellas.png" class="jim" style="bottom:20%; right:15%;">
 
 <script>
+/* ===== DESTELLOS ===== */
 const canvas = document.getElementById("fuegos");
 const ctx = canvas.getContext("2d");
 
@@ -145,6 +146,13 @@ function animar(){
 }
 
 animar();
+
+/* ===== MUSICA (TOQUE EN PANTALLA) ===== */
+const audio = document.getElementById("musica");
+
+document.addEventListener("click", () => {
+    audio.play();
+}, { once: true });
 </script>
 
 </body>
